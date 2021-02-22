@@ -1,7 +1,7 @@
 import React from 'react'
 import {Line} from 'react-chartjs-2'
 
-export default function Utilization() {
+export default function Odometer() {
     return (
         <div>
             <Line
@@ -14,7 +14,7 @@ export default function Utilization() {
 
             }}
             width ={100}
-            height = {400}
+            height = {300}
             options = {{
                 maintainAspectRatio:false
             }}

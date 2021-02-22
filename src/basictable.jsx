@@ -13,7 +13,6 @@ const useStyles = makeStyles({
   },
 });
 
-
 export default function BasicTable({rows,colName}) {
   const classes = useStyles();
   return (
@@ -22,16 +21,16 @@ export default function BasicTable({rows,colName}) {
         <TableHead>
           <TableRow>
             <TableCell>{colName.x}</TableCell>
-            <TableCell align="right">{colName.y} </TableCell>
-            <TableCell align="right">{colName.z}</TableCell>
+            <TableCell align="center">{colName.y}</TableCell>
+            <TableCell align="center">{colName.z}</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {rows.map((row) => (
             <TableRow key={row.name}>
               <TableCell>{row.x}</TableCell>
-              <TableCell align="right">{row.y}</TableCell>
-              <TableCell align="right">{row.z}</TableCell>
+              <TableCell align="center">{row.y}</TableCell>
+              <TableCell align="center">{row.z}</TableCell>
             </TableRow>
           ))}
         </TableBody>
