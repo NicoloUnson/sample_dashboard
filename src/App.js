@@ -14,13 +14,18 @@ import InputBase from '@material-ui/core/InputBase';
 import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
+import Tooltip from '@material-ui/core/Tooltip';
+import Box from "@material-ui/core/Box";
+import Button from "@material-ui/core/Button";
+
+import ChevronRightOutlinedIcon from '@material-ui/icons/ChevronRightOutlined';
+import ChevronLeftOutlinedIcon from '@material-ui/icons/ChevronLeftOutlined';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import Tooltip from '@material-ui/core/Tooltip';
 
 import Odometer from './odometer'
 import Utilization from './utilization';
@@ -43,6 +48,33 @@ const useStyles = makeStyles((theme) => ({
     height: '90vh',
     maxWidth: '85vw',
     marginTop: "15px"
+  },
+  top_title_boxes: {
+    marginTop: "-32px",
+    marginLeft: "10px",
+    backgroundColor: "#EAF8F3",
+    width: "100px",
+    border: "3px solid #FFD700"
+  },
+  bottom_title_boxes: {
+    marginTop: "-32px",
+    marginLeft: "10px",
+    backgroundColor: "#EAF8F3",
+    width: "150px",
+    border: "3px solid #FFD700"
+  },
+  top_bottom_title_box: {
+    marginTop: "-35px",
+    marginLeft: "10px",
+    backgroundColor: "#EAF8F3",
+    width: "200px",
+    border: "3px solid #FFD700"
+  },
+  top_bottom_title: {
+    marginTop: "3px",
+  },
+  table_css: {
+    marginTop: "100px",
   },
   search: {
     position: 'relative',
@@ -150,7 +182,8 @@ const HtmlTooltip = withStyles((theme) => ({
 }))(Tooltip);
 
 export default function App() {
-  const [lastUpdated, setLastUpdated] = useState("Today");
+  const [last_updated, setLastUpdated] = useState("Today");
+  const [top_bottom, setTopBottom] = useState("Engine Runtime");
   const classes = useStyles();
   const rows = efficiencyData
   return (
@@ -217,6 +250,9 @@ export default function App() {
         <Grid container spacing={5}>
           <Grid border item lg={5} xs={12}>
             <Paper elevation={7} className={classes.paper}>
+              <Box className={classes.top_title_boxes}>
+                <Typography>Utilization</Typography>
+              </Box>
               <Utilization />
               <Grid container>
                 <Grid item xs={10} />
@@ -226,7 +262,7 @@ export default function App() {
                       <React.Fragment>
                         <i>Utilization is number of garaged units</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
@@ -243,6 +279,9 @@ export default function App() {
           </Grid>
           <Grid item lg={5} xs={12}>
             <Paper elevation={7} className={classes.paper}>
+              <Box className={classes.top_title_boxes}>
+                <Typography>Odometer</Typography>
+              </Box>
               <Odometer />
               <Grid container>
                 <Grid item xs={10} />
@@ -252,7 +291,7 @@ export default function App() {
                       <React.Fragment>
                         <i>Odometer is the average kilometers travelled.</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
@@ -269,6 +308,9 @@ export default function App() {
           </Grid>
           <Grid item lg={2} xs={12}>
             <Paper elevation={7} className={classes.paper}>
+              <Box className={classes.top_title_boxes}>
+                <Typography>Averages</Typography>
+              </Box>
               <Averages />
               <Grid container>
                 <Grid item xs={8} />
@@ -278,7 +320,7 @@ export default function App() {
                       <React.Fragment>
                         <i>Averages show the average value of these values.</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
@@ -295,7 +337,10 @@ export default function App() {
           </Grid>
           <Grid item lg={4} xs={12}>
             <Paper elevation={7} className={classes.paper}>
-              <Table rows={rows} colName={efficiencyCol} />
+              <Box className={classes.bottom_title_boxes}>
+                <Typography>Efficiency</Typography>
+              </Box>
+              <Table className={classes.table_css} rows={rows} colName={efficiencyCol} />
               <Grid container>
                 <Grid item xs={8} />
                 <Grid item xs={4}>
@@ -304,7 +349,7 @@ export default function App() {
                       <React.Fragment>
                         <i>Top or Bottom Five of Efficiency data.</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
@@ -321,7 +366,10 @@ export default function App() {
           </Grid>
           <Grid item lg={4} xs={12}>
             <Paper elevation={7} className={classes.paper}>
-              <Table rows={engineRunTime} colName={engineRunTimeCol} />
+              <Box className={classes.bottom_title_boxes}>
+                <Typography>Engine Runtime</Typography>
+              </Box>
+              <Table className={classes.table_css} rows={engineRunTime} colName={engineRunTimeCol} />
               <Grid container>
                 <Grid item xs={8} />
                 <Grid item xs={4}>
@@ -330,7 +378,7 @@ export default function App() {
                       <React.Fragment>
                         <i>Top or Bottom Five of Engine Runtime data.</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
@@ -347,7 +395,24 @@ export default function App() {
           </Grid>
           <Grid item lg={4} xs={12}>
             <Paper elevation={7} className={classes.paper}>
-              <CompareTable rows={compareTableData} />
+              <Box className={classes.top_bottom_title_box}>
+                <Grid container>
+                  <Grid item xs={2}>
+                    <IconButton size="small">
+                      <ChevronLeftOutlinedIcon />
+                    </IconButton>
+                  </Grid>
+                  <Grid item xs={8}>
+                    <Typography className={classes.top_bottom_title}>{top_bottom}</Typography>
+                  </Grid>
+                  <Grid item xs={2}>
+                    <IconButton size="small">
+                      <ChevronRightOutlinedIcon />
+                    </IconButton>
+                  </Grid>
+                </Grid>
+              </Box>
+              <CompareTable className={classes.table_css} rows={compareTableData} />
 
               <Grid container>
                 <Grid item xs={8} />
@@ -355,9 +420,9 @@ export default function App() {
                   <HtmlTooltip
                     title={
                       <React.Fragment>
-                        <i>Comparison table for Engine Runtime.</i>
+                        <i>Comparison table for { top_bottom }.</i>
                         <hr class="solid" />
-                        <i>Last Updated: { lastUpdated }</i>
+                        <i>Last Updated: { last_updated }</i>
                       </React.Fragment>
                     }
                   >
